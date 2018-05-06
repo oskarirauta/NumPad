@@ -21,7 +21,6 @@ public extension NumPad {
         var phoneFont: UIFont
         var phoneCharFont: UIFont
         var backspaceColor: UIColor
-        var backspaceColorHighlighted: UIColor
         
         public static var `default`: NumPad.Style = NumPad.Style(
             overlayColor: UIColor.keyboardBackgroundColor,
@@ -33,8 +32,7 @@ public extension NumPad {
             font: UIFont.systemFont(ofSize: 25.0, weight: .semibold),
             phoneFont: UIFont.systemFont(ofSize: 20.0, weight: .regular),
             phoneCharFont: UIFont.systemFont(ofSize: 8.5, weight: .semibold),
-            backspaceColor: UIColor.darkGray,
-            backspaceColorHighlighted: UIColor.lightGray
+            backspaceColor: UIColor.darkGray
         )
     }
 }

@@ -134,10 +134,6 @@ class NumPadBackspaceButton: UIButton {
     private(set) var style: NumPad.Style = NumPad.Style.default
     private(set) var count: Int = 0
     
-    override var isHighlighted: Bool {
-        didSet { self.tintColor = self.isHighlighted ? self.style.backspaceColorHighlighted : self.style.backspaceColor }
-    }
-    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -150,7 +146,7 @@ class NumPadBackspaceButton: UIButton {
         self.style = style
         self.tag = 11
         self.backgroundColor = UIColor.clear
-        self.tintColor = self.isHighlighted ? self.style.backspaceColorHighlighted : self.style.backspaceColor
+        self.tintColor = style.backspaceColor
         self.handler = handler
         self.addTarget(self, action: #selector(self.buttonDown), for: .touchDown)
         self.addTarget(self, action: #selector(self.buttonUp), for: .touchUpInside)
