@@ -1,5 +1,10 @@
-# Swift-NumPad
+# NumPad
 NumPad keyboard framework for iOS. For both, iPhone and iPad.
+Swift 4.0
+
+# LocaleKit Branch
+Additional support for my other framework, LocaleKit.
+Only change is with decimal character.
 
 # NumPad Framework
 Shared framework which provides 2 public classes:
