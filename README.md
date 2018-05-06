@@ -1,6 +1,5 @@
 # Swift-NumPad
 NumPad keyboard framework for iOS. For both, iPhone and iPad.
-Includes a example.
 
 # NumPad Framework
 Shared framework which provides 2 new public classes:
