@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E02F776209F901A00F2B585 /* LocaleKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E02F775209F901A00F2B585 /* LocaleKit.framework */; };
 		6E6D34B7209E2B2900676B52 /* NumPad.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E6D34B6209E2B2900676B52 /* NumPad.xcassets */; };
 		6E6D34BA209E3A1300676B52 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6D34B9209E3A1300676B52 /* UIColor.swift */; };
 		6E6D34BC209E3A3200676B52 /* NSLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6D34BB209E3A3200676B52 /* NSLayoutConstraint.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6E02F775209F901A00F2B585 /* LocaleKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LocaleKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E6D34B6209E2B2900676B52 /* NumPad.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = NumPad.xcassets; sourceTree = "<group>"; };
 		6E6D34B9209E3A1300676B52 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		6E6D34BB209E3A3200676B52 /* NSLayoutConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraint.swift; sourceTree = "<group>"; };
@@ -39,12 +41,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E02F776209F901A00F2B585 /* LocaleKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6E02F774209F901A00F2B585 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6E02F775209F901A00F2B585 /* LocaleKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		6E6D34B5209E2B0C00676B52 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -76,6 +87,7 @@
 			children = (
 				6ED6EA19209C77C000127C5F /* NumPad */,
 				6ED6EA18209C77C000127C5F /* Products */,
+				6E02F774209F901A00F2B585 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};

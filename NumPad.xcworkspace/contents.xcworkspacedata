@@ -7,4 +7,7 @@
    <FileRef
       location = "group:NumPad/NumPad.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:../LocaleKit/LocaleKit/LocaleKit.xcodeproj">
+   </FileRef>
 </Workspace>

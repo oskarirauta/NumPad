@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import LocaleKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, AppLocale {
 
+    var regionCode: String = "fi_FI"
+    
     lazy var window: UIWindow? = {
         var _window: UIWindow = UIWindow(frame: UIScreen.main.bounds)
         _window.rootViewController = ViewController()

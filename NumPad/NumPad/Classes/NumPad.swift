@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import LocaleKit
 
 open class NumPad: UIInputView, UIInputViewAudioFeedback {
 
@@ -68,7 +69,7 @@ open class NumPad: UIInputView, UIInputViewAudioFeedback {
     }
     
     open static var decimalChar: String {
-        get { return (Locale.current as NSLocale).object(forKey: NSLocale.Key.decimalSeparator) as? String ?? "." }
+        get { return (Locale.appLocale as NSLocale).object(forKey: NSLocale.Key.decimalSeparator) as? String ?? "." }
     }
     
     open var decimalChar: String {
