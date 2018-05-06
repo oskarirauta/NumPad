@@ -21,6 +21,7 @@ NumPad can be styled with following attributes:
   - shadowColor ( button shadow color )
   - foregroundColor ( button text color )
   - foregroundColorHighlighted ( button text color when highlighted )
+  - font ( font for numbers and +/. buttons )
   - font ( button font and +/. button font )
   - phoneFont ( button font when using phone type )
   - phoneCharFont ( when phone type is used, this font is used for letters )
