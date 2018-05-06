@@ -39,6 +39,12 @@ tf.inputView = NumPad(delegate: tf, type: .number)
 tf.inputAccessoryView = DoneBar(delegate: tf)
 ```
 
+Steps:
+  - Download this repository
+  - On your own workspace, add NumPad.xcodeproj to it
+  - On your own project ( in workspace ), add NumPad to it's frameworks.
+  - add import NumPad to files where you need NumPad.
+
 See provided example.
 
 # Screenshots
