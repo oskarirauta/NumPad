@@ -2,7 +2,7 @@
 NumPad keyboard framework for iOS. For both, iPhone and iPad.
 
 # NumPad Framework
-Shared framework which provides 2 new public classes:
+Shared framework which provides 2 public classes:
   - NumPad
   - DoneBar
   
