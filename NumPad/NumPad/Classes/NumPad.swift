@@ -68,7 +68,7 @@ open class NumPad: UIInputView, UIInputViewAudioFeedback {
     }
     
     open static var decimalChar: String {
-        get { return (Locale.current as NSLocale).object(forKey: NSLocale.Key.decimalSeparator) as? String ?? "." }
+        get { return Locale.autoupdatingCurrent.decimalSeparator ?? "." }
     }
     
     open var decimalChar: String {
