@@ -50,6 +50,6 @@ See provided example.
 
 # Screenshots
 
-![Screenshot of decimal keyboard](https://raw.githubusercontent.com/oskarirauta/Swift-NumPad/master/Screenshots/Decimal.png)   ![Screenshot of phone keyboard](https://raw.githubusercontent.com/oskarirauta/Swift-NumPad/master/Screenshots/Phone.png)
+![Screenshot of decimal keyboard](https://raw.githubusercontent.com/oskarirauta/NumPad/master/Screenshots/Decimal.png)   ![Screenshot of phone keyboard](https://raw.githubusercontent.com/oskarirauta/NumPad/master/Screenshots/Phone.png)
 
-![Landscape screenshot](https://raw.githubusercontent.com/oskarirauta/Swift-NumPad/master/Screenshots/Landscape.png)
+![Landscape screenshot](https://raw.githubusercontent.com/oskarirauta/NumPad/master/Screenshots/Landscape.png)
