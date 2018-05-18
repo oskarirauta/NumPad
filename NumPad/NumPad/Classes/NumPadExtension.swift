@@ -104,20 +104,23 @@ extension NumPad {
     }
     
     internal func postUpdate() {
-        
-        if let name: NSNotification.Name = self.notificationName {
-            NotificationCenter.default.post(name: name, object: self.textView)
-        }
+
+        guard
+            let inputViewType: InputViewType = self.inputViewType,
+            let textInput: UITextInput = self.textInput
+            else { return }
+
+        NotificationCenter.default.post(name: inputViewType == .textField ? NSNotification.Name.UITextFieldTextDidChange : NSNotification.Name.UITextViewTextDidChange, object: inputViewType == .textField ? (textInput as! UITextField) : (textInput as! UITextView))
     }
     
     internal func updateState() {
         
-        if ((!( self.textView?.hasText ?? false )) && ( self.button[11].isEnabled )) {
+        if ((!( self.textInput?.hasText ?? false )) && ( self.button[11].isEnabled )) {
             (self.button[11] as! NumPadBackspaceButton).timer?.invalidate()
             (self.button[11] as! NumPadBackspaceButton).timer = nil
         }
         
-        self.button[11].isEnabled = self.textView?.hasText ?? false
+        self.button[11].isEnabled = self.textInput?.hasText ?? false
         
         if ( self.type == .decimal ) {
             self.button[10].isEnabled = (self.value?.contains(self.decimalChar) ?? false) ? false : true
@@ -126,24 +129,73 @@ extension NumPad {
         }
     }
 
+    internal func shouldChangeText(_ textInput: UITextInput?, in: UITextRange, replacementText: String) -> Bool {
+        
+        guard
+            let inputViewType: InputViewType = self.inputViewType,
+            let textInput: UITextInput = textInput
+            else { return false }
+        
+        let nsrange: NSRange = NSRange(location: textInput.offset(from: textInput.beginningOfDocument, to: `in`.start), length: textInput.offset(from: `in`.start, to: `in`.end))
+        
+        switch inputViewType {
+        case .textField:
+            if let textField: UITextField = textInput as? UITextField, !( textField.delegate?.textField?(textField, shouldChangeCharactersIn: nsrange, replacementString: replacementText) ?? textField.shouldChangeText(in: `in`, replacementText: replacementText)) {
+                return false
+            }
+        case .textView:
+            if let textView: UITextView = textInput as? UITextView, !( textView.delegate?.textView?(textView, shouldChangeTextIn: nsrange, replacementText: replacementText) ?? textView.shouldChangeText(in: `in`, replacementText: replacementText )) {
+                return false
+            }
+        }
+
+        return true
+    }
+    
+    internal func replace(_ textInput: UITextInput?, range: UITextRange?, withText: String) {
+        
+        guard
+            let textInput: UITextInput = textInput,
+            let range: UITextRange = range,
+            self.shouldChangeText(textInput, in: range, replacementText: withText)
+            else { return }
+        
+        switch textInput {
+        case is UITextField: (textInput as! UITextField).replace(range, withText: withText)
+        case is UITextView: (textInput as! UITextView).replace(range, withText: withText)
+        default: textInput.replace(range, withText: withText)
+        }
+    }
+    
     internal func buttonHandler(_ tag: Int) {
         
-        UIDevice.current.playInputClick()
+        if ( self.enableInputClicksWhenVisible ) {
+            UIDevice.current.playInputClick()
+        }
         
-        let buttonsValues = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+        let buttonsValues: [String] = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
         let functionChar: String = self.type == .decimal ? (( self.value?.isEmpty ?? true ) ? ( "0" + self.decimalChar ) : self.decimalChar ) : "+"
         
         switch tag {
         case let (x) where x < 10:
-            self.textView?.insertText(buttonsValues[tag])
+            
+            self.replace(self.textInput, range: self.textInput?.selectedTextRange, withText: buttonsValues[tag])
             self.postUpdate()
             
-        case 10:
-            self.textView?.insertText(functionChar)
+        case 10: // Type variadic function key
+            self.replace(self.textInput, range: self.textInput?.selectedTextRange, withText: functionChar)
             self.postUpdate()
             
-        case 11:
-            self.textView?.deleteBackward()
+        case 11: // Backspace
+            guard
+                let textInput: UITextInput = textInput,
+                let from: UITextPosition = textInput.position(from: textInput.beginningOfDocument, offset: self.cursorOffset - 1),
+                let to: UITextPosition = textInput.position(from: textInput.beginningOfDocument, offset: self.cursorOffset),
+                let range: UITextRange = textInput.textRange(from: from, to: to),
+                self.shouldChangeText(textInput, in: range, replacementText: "")
+                else { return }
+            
+            self.replace(textInput, range: range, withText: "")
             self.postUpdate()
             
         default:

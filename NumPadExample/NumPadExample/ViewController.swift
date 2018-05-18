@@ -8,63 +8,59 @@
 
 import UIKit
 import NumPad
+import CommonKit
+import PhoneNumberKit
 
 class ViewController: UIViewController, UITextFieldDelegate {
     
-    lazy var tf1: UITextField = {
-        var _tf: UITextField = UITextField(frame: .zero)
-        _tf.translatesAutoresizingMaskIntoConstraints = false
-        _tf.borderStyle = .roundedRect
-        _tf.delegate = self
-        _tf.placeholder = "Number"
-        _tf.inputView = NumPad(delegate: _tf, type: .number)
-        _tf.inputAccessoryView = DoneBar(delegate: _tf)
-        return _tf
-    }()
+    lazy var phone_del: PhoneNumberFieldDelegate = PhoneNumberFieldDelegate.create {
+        $0.subDelegate = self
+    }
+    
+    lazy var tf1: UITextField = UITextField.create {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.borderStyle = .roundedRect
+        $0.delegate = self
+        $0.placeholder = "Number"
+        $0.inputView = NumPad() // Defaults to .number
+        $0.inputAccessoryView = DoneBar()
+        }
 
-    lazy var tf2: UITextField = {
-        var _tf: UITextField = UITextField(frame: .zero)
-        _tf.translatesAutoresizingMaskIntoConstraints = false
-        _tf.borderStyle = .roundedRect
-        _tf.delegate = self
-        _tf.placeholder = "Decimal"
-        _tf.inputView = NumPad(delegate: _tf, type: .decimal)
-        _tf.inputAccessoryView = DoneBar(delegate: _tf)
-        return _tf
-    }()
+    lazy var tf2: UITextField = UITextField.create {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.borderStyle = .roundedRect
+        $0.delegate = self
+        $0.placeholder = "Decimal"
+        $0.inputView = NumPad(type: .decimal)
+        $0.inputAccessoryView = DoneBar()
+    }
 
-    lazy var tf3: UITextField = {
-        var _tf: UITextField = UITextField(frame: .zero)
-        _tf.translatesAutoresizingMaskIntoConstraints = false
-        _tf.borderStyle = .roundedRect
-        _tf.delegate = self
-        _tf.placeholder = "Phone"
-        _tf.inputView = NumPad(delegate: _tf, type: .phone)
-        _tf.inputAccessoryView = DoneBar(delegate: _tf)
-        return _tf
-    }()
+    lazy var tf3: UITextField = UITextField.create {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.borderStyle = .roundedRect
+        $0.delegate = self.phone_del
+        $0.placeholder = "Phone (with formatting)"
+        $0.inputView = NumPad(type: .phone)
+        $0.inputAccessoryView = DoneBar()
+    }
 
-    lazy var tf4: UITextField = {
-        var _tf: UITextField = UITextField(frame: .zero)
-        _tf.translatesAutoresizingMaskIntoConstraints = false
-        _tf.borderStyle = .roundedRect
-        _tf.delegate = self
-        _tf.placeholder = "Text"
-        _tf.inputAccessoryView = DoneBar(delegate: _tf)
-        return _tf
-    }()
+    lazy var tf4: UITextField = UITextField.create {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.borderStyle = .roundedRect
+        $0.delegate = self
+        $0.placeholder = "Text with DoneBar"
+        $0.inputAccessoryView = DoneBar()
+    }
 
-    lazy var dismissBtn: UIButton = {
-        var _btn: UIButton = UIButton(frame: .zero)
-        _btn.translatesAutoresizingMaskIntoConstraints = false
-        _btn.setTitle("Dismiss", for: UIControlState())
-        _btn.isEnabled = false
-        _btn.setTitleColor(UIColor.blue, for: .normal)
-        _btn.setTitleColor(UIColor.lightGray, for: .disabled)
-        _btn.setTitleColor(UIColor.darkGray, for: .highlighted)
-        _btn.addTarget(self, action: #selector(self.btnAction), for: .touchUpInside)
-        return _btn
-    }()
+    lazy var dismissBtn: UIButton = UIButton.create {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.setTitle("Dismiss", for: UIControlState())
+        $0.isEnabled = false
+        $0.setTitleColor(UIColor.blue, for: .normal)
+        $0.setTitleColor(UIColor.lightGray, for: .disabled)
+        $0.setTitleColor(UIColor.darkGray, for: .highlighted)
+        $0.addTarget(self, action: #selector(self.btnAction), for: .touchUpInside)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		6E02F778209F902600F2B585 /* LocaleKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E02F777209F902600F2B585 /* LocaleKit.framework */; };
+		6E88F4AE20AF6A5E002969A7 /* PhoneNumberKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E88F4AD20AF6A5E002969A7 /* PhoneNumberKit.framework */; };
+		6E88F4B020AF6BC7002969A7 /* CommonKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E88F4AF20AF6BC7002969A7 /* CommonKit.framework */; };
 		6ED6E9FC209C777800127C5F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED6E9FB209C777800127C5F /* AppDelegate.swift */; };
 		6ED6E9FE209C777800127C5F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED6E9FD209C777800127C5F /* ViewController.swift */; };
 		6ED6EA03209C777900127C5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6ED6EA02209C777900127C5F /* Assets.xcassets */; };
@@ -17,6 +19,8 @@
 
 /* Begin PBXFileReference section */
 		6E02F777209F902600F2B585 /* LocaleKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LocaleKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E88F4AD20AF6A5E002969A7 /* PhoneNumberKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PhoneNumberKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E88F4AF20AF6BC7002969A7 /* CommonKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CommonKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6ED6E9F8209C777800127C5F /* NumPadExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NumPadExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6ED6E9FB209C777800127C5F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6ED6E9FD209C777800127C5F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -31,6 +35,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E88F4B020AF6BC7002969A7 /* CommonKit.framework in Frameworks */,
+				6E88F4AE20AF6A5E002969A7 /* PhoneNumberKit.framework in Frameworks */,
 				6E02F778209F902600F2B585 /* LocaleKit.framework in Frameworks */,
 				6ED6EA24209C77D800127C5F /* NumPad.framework in Frameworks */,
 			);
@@ -71,6 +77,8 @@
 		6ED6EA22209C77D800127C5F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6E88F4AF20AF6BC7002969A7 /* CommonKit.framework */,
+				6E88F4AD20AF6A5E002969A7 /* PhoneNumberKit.framework */,
 				6E02F777209F902600F2B585 /* LocaleKit.framework */,
 				6ED6EA23209C77D800127C5F /* NumPad.framework */,
 			);
