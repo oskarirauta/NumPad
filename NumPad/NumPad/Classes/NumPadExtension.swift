@@ -170,7 +170,7 @@ extension NumPad {
     
     internal func buttonHandler(_ tag: Int) {
         
-        if ( self.enableInputClicksWhenVisible ) {
+        if ( self.enableInputClicks ) {
             UIDevice.current.playInputClick()
         }
         

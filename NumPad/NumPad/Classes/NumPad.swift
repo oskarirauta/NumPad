@@ -9,24 +9,24 @@
 import Foundation
 import LocaleKit
 
-open class NumPad: UIInputView, UIInputViewAudioFeedback {
+public final class NumPad: UIInputView, UIInputViewAudioFeedback {
 
     private(set) var type: KeyboardType = .number
     private(set) var style: Style = Style.default
     private(set) var inputViewType: InputViewType? = nil
     private(set) weak var textInput: UITextInput? = nil
 
-    open var enableInputClicksWhenVisible: Bool = true
+    public var enableInputClicks: Bool = true
  
-    open var cursorOffset: Int {
+    public var cursorOffset: Int {
         return self.textInput!.offset(from: textInput!.beginningOfDocument, to: textInput!.selectedTextRange?.start ?? textInput!.endOfDocument)
     }
     
-    open static var decimalChar: String {
+    public static var decimalChar: String {
         get { return Locale.appLocale.decimalSeparator ?? "." }
     }
     
-    open var decimalChar: String {
+    public var decimalChar: String {
         get { return NumPad.decimalChar }
     }
     
@@ -57,7 +57,7 @@ open class NumPad: UIInputView, UIInputViewAudioFeedback {
     
     internal var button: [UIButton] = []
 
-    open override var intrinsicContentSize: CGSize {
+    public override var intrinsicContentSize: CGSize {
         get { return CGSize(width: UIViewNoIntrinsicMetric, height: UIViewNoIntrinsicMetric) }
     }
 
@@ -119,7 +119,7 @@ open class NumPad: UIInputView, UIInputViewAudioFeedback {
         self.inputViewType = notification.name == NSNotification.Name.UITextFieldTextDidBeginEditing ? .textField : .textView
     }
     
-    open override func willMove(toSuperview newSuperview: UIView?) {
+    public override func willMove(toSuperview newSuperview: UIView?) {
         
         super.willMove(toSuperview: newSuperview)
         
@@ -147,7 +147,7 @@ open class NumPad: UIInputView, UIInputViewAudioFeedback {
         }
     }
 
-    open override func layoutSubviews() {
+    public override func layoutSubviews() {
         super.layoutSubviews()
         
         guard self.type == .phone else { return }

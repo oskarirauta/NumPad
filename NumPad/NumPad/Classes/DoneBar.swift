@@ -8,7 +8,7 @@
 
 import Foundation
 
-open class DoneBar: UIToolbar {
+public final class DoneBar: UIToolbar {
 
     private(set) var inputViewType: NumPad.InputViewType? = nil
     private(set) weak var textInput: UITextInput? = nil
