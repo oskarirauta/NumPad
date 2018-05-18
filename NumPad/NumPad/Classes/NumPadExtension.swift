@@ -129,22 +129,23 @@ extension NumPad {
         }
     }
 
-    internal func shouldChangeText(_ textInput: UITextInput?, in: UITextRange, replacementText: String) -> Bool {
+    internal func shouldChangeText(in range: UITextRange?, replacementText: String) -> Bool {
         
         guard
+            let range: UITextRange = range,
             let inputViewType: InputViewType = self.inputViewType,
-            let textInput: UITextInput = textInput
+            let textInput: UITextInput = self.textInput
             else { return false }
         
-        let nsrange: NSRange = NSRange(location: textInput.offset(from: textInput.beginningOfDocument, to: `in`.start), length: textInput.offset(from: `in`.start, to: `in`.end))
+        let nsrange: NSRange = NSRange(location: textInput.offset(from: textInput.beginningOfDocument, to: range.start), length: textInput.offset(from: range.start, to: range.end))
         
         switch inputViewType {
         case .textField:
-            if let textField: UITextField = textInput as? UITextField, !( textField.delegate?.textField?(textField, shouldChangeCharactersIn: nsrange, replacementString: replacementText) ?? textField.shouldChangeText(in: `in`, replacementText: replacementText)) {
+            if let textField: UITextField = textInput as? UITextField, !( textField.delegate?.textField?(textField, shouldChangeCharactersIn: nsrange, replacementString: replacementText) ?? textField.shouldChangeText(in: range, replacementText: replacementText)) {
                 return false
             }
         case .textView:
-            if let textView: UITextView = textInput as? UITextView, !( textView.delegate?.textView?(textView, shouldChangeTextIn: nsrange, replacementText: replacementText) ?? textView.shouldChangeText(in: `in`, replacementText: replacementText )) {
+            if let textView: UITextView = textInput as? UITextView, !( textView.delegate?.textView?(textView, shouldChangeTextIn: nsrange, replacementText: replacementText) ?? textView.shouldChangeText(in: range, replacementText: replacementText )) {
                 return false
             }
         }
@@ -152,18 +153,18 @@ extension NumPad {
         return true
     }
     
-    internal func replace(_ textInput: UITextInput?, range: UITextRange?, withText: String) {
+    internal func replace(_ range: UITextRange?, withText: String) {
         
         guard
-            let textInput: UITextInput = textInput,
             let range: UITextRange = range,
-            self.shouldChangeText(textInput, in: range, replacementText: withText)
+            let textInput: UITextInput = self.textInput,
+            let inputViewType: InputViewType = self.inputViewType,
+            self.shouldChangeText(in: range, replacementText: withText)
             else { return }
         
-        switch textInput {
-        case is UITextField: (textInput as! UITextField).replace(range, withText: withText)
-        case is UITextView: (textInput as! UITextView).replace(range, withText: withText)
-        default: textInput.replace(range, withText: withText)
+        switch inputViewType {
+        case .textField: (textInput as! UITextField).replace(range, withText: withText)
+        case .textView: (textInput as! UITextView).replace(range, withText: withText)
         }
     }
     
@@ -179,11 +180,11 @@ extension NumPad {
         switch tag {
         case let (x) where x < 10:
             
-            self.replace(self.textInput, range: self.textInput?.selectedTextRange, withText: buttonsValues[tag])
+            self.replace(self.textInput?.selectedTextRange, withText: buttonsValues[tag])
             self.postUpdate()
             
         case 10: // Type variadic function key
-            self.replace(self.textInput, range: self.textInput?.selectedTextRange, withText: functionChar)
+            self.replace(self.textInput?.selectedTextRange, withText: functionChar)
             self.postUpdate()
             
         case 11: // Backspace
@@ -192,10 +193,10 @@ extension NumPad {
                 let from: UITextPosition = textInput.position(from: textInput.beginningOfDocument, offset: self.cursorOffset - 1),
                 let to: UITextPosition = textInput.position(from: textInput.beginningOfDocument, offset: self.cursorOffset),
                 let range: UITextRange = textInput.textRange(from: from, to: to),
-                self.shouldChangeText(textInput, in: range, replacementText: "")
+                self.shouldChangeText(in: range, replacementText: "")
                 else { return }
             
-            self.replace(textInput, range: range, withText: "")
+            self.replace(range, withText: "")
             self.postUpdate()
             
         default:

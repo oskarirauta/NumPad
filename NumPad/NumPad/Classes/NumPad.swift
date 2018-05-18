@@ -14,7 +14,8 @@ open class NumPad: UIInputView, UIInputViewAudioFeedback {
     private(set) var type: KeyboardType = .number
     private(set) var style: Style = Style.default
     private(set) var inputViewType: InputViewType? = nil
-    
+    private(set) weak var textInput: UITextInput? = nil
+
     open var enableInputClicksWhenVisible: Bool = true
  
     open var cursorOffset: Int {
@@ -55,7 +56,6 @@ open class NumPad: UIInputView, UIInputViewAudioFeedback {
     }()
     
     internal var button: [UIButton] = []
-    internal weak var textInput: UITextInput?
 
     open override var intrinsicContentSize: CGSize {
         get { return CGSize(width: UIViewNoIntrinsicMetric, height: UIViewNoIntrinsicMetric) }
