@@ -145,6 +145,8 @@ public final class NumPad: UIInputView, UIInputViewAudioFeedback {
                 textInput.replace(range, withText: newText != "+" ? newText : "" )
             }
         }
+        
+        self.updateState()
     }
 
     public override func layoutSubviews() {
