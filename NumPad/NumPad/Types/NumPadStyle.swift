@@ -11,16 +11,16 @@ import Foundation
 public extension NumPad {
  
     public struct Style {
-        var overlayColor: UIColor
-        var backgroundColor: UIColor
-        var backgroundColorHighlighted: UIColor
-        var shadowColor: UIColor
-        var foregroundColor: UIColor
-        var foregroundColorHighlighted: UIColor
-        var font: UIFont
-        var phoneFont: UIFont
-        var phoneCharFont: UIFont
-        var backspaceColor: UIColor
+        public var overlayColor: UIColor
+        public var backgroundColor: UIColor
+        public var backgroundColorHighlighted: UIColor
+        public var shadowColor: UIColor
+        public var foregroundColor: UIColor
+        public var foregroundColorHighlighted: UIColor
+        public var font: UIFont
+        public var phoneFont: UIFont
+        public var phoneCharFont: UIFont
+        public var backspaceColor: UIColor
         
         public static var `default`: NumPad.Style = NumPad.Style(
             overlayColor: UIColor.keyboardBackgroundColor,
