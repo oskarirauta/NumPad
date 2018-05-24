@@ -124,8 +124,8 @@ extension NumPad {
         
         if ( self.type == .decimal ) {
             self.button[10].isEnabled = (self.value?.contains(self.decimalChar) ?? false) ? false : true
-        } else if ( self.type == .phone ) {
-            self.button[10].isEnabled = ( self.value?.count ?? 0 ) > 0 ? false : true
+        } else if ( self.type == .phone ) { // + must always be first on international phone number
+            self.button[10].isEnabled = !self.button[11].isEnabled
         }
     }
 
@@ -153,13 +153,13 @@ extension NumPad {
         return true
     }
     
-    internal func replace(_ range: UITextRange?, withText: String) {
+    internal func replace(_ range: UITextRange?, withText: String, testResult: Bool? = nil) {
         
         guard
             let range: UITextRange = range,
             let textInput: UITextInput = self.textInput,
             let inputViewType: InputViewType = self.inputViewType,
-            self.shouldChangeText(in: range, replacementText: withText)
+            testResult ?? self.shouldChangeText(in: range, replacementText: withText)
             else { return }
         
         switch inputViewType {
@@ -193,10 +193,13 @@ extension NumPad {
                 let from: UITextPosition = textInput.position(from: textInput.beginningOfDocument, offset: self.cursorOffset - 1),
                 let to: UITextPosition = textInput.position(from: textInput.beginningOfDocument, offset: self.cursorOffset),
                 let range: UITextRange = textInput.textRange(from: from, to: to),
-                self.shouldChangeText(in: range, replacementText: "")
-                else { return }
-            
-            self.replace(range, withText: "")
+                let testResult: Bool = self.shouldChangeText(in: range, replacementText: "") as Bool?
+                else {
+                    self.updateState()
+                    return
+            }
+
+            self.replace(range, withText: "", testResult: testResult)
             self.postUpdate()
             
         default:
@@ -205,6 +208,5 @@ extension NumPad {
         
         self.updateState()
     }
-
     
 }
