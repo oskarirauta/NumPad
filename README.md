@@ -2,10 +2,6 @@
 NumPad keyboard framework for iOS. For both, iPhone and iPad.
 Swift 4.0
 
-# LocaleKit Branch
-Additional support for my other framework, LocaleKit.
-Only change is with decimal character.
-
 # NumPad Framework
 Shared framework which provides 2 public classes:
   - NumPad
@@ -34,14 +30,17 @@ NumPad can be styled with following attributes:
 # DoneBar class
 Donebar is a fast UIToolbar initializer with Done button aligned to right.
 
+# LocaleKit requirement
+I use LocaleKit framework widely. This requires minimum amount of LocaleKit, but uses it for decimal separator character.
+
 # Usage
 Used with UITextField or UITextView.
 
 ```
 var tf: UITextField = UITextField(frame: .zero)
 ...
-tf.inputView = NumPad(delegate: tf, type: .number)
-tf.inputAccessoryView = DoneBar(delegate: tf)
+tf.inputView = NumPad(type: .number)
+tf.inputAccessoryView = DoneBar()
 ```
 
 Steps:
