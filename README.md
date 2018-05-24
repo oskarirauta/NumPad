@@ -2,6 +2,10 @@
 NumPad keyboard framework for iOS. For both, iPhone and iPad.
 Swift 4.0
 
+# LocaleKit Branch
+Additional support for my other framework, LocaleKit.
+Only change is with decimal character.
+
 # NumPad Framework
 Shared framework which provides 2 public classes:
   - NumPad
@@ -50,6 +54,6 @@ See provided example.
 
 # Screenshots
 
-![Screenshot of decimal keyboard](https://raw.githubusercontent.com/oskarirauta/NumPad/master/Screenshots/Decimal.png)   ![Screenshot of phone keyboard](https://raw.githubusercontent.com/oskarirauta/NumPad/master/Screenshots/Phone.png)
+![Screenshot of decimal keyboard](https://raw.githubusercontent.com/oskarirauta/Swift-NumPad/master/Screenshots/Decimal.png)   ![Screenshot of phone keyboard](https://raw.githubusercontent.com/oskarirauta/Swift-NumPad/master/Screenshots/Phone.png)
 
-![Landscape screenshot](https://raw.githubusercontent.com/oskarirauta/NumPad/master/Screenshots/Landscape.png)
+![Landscape screenshot](https://raw.githubusercontent.com/oskarirauta/Swift-NumPad/master/Screenshots/Landscape.png)
