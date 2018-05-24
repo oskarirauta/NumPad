@@ -7,12 +7,40 @@
 //
 
 import Foundation
+import LocaleKit
 
-open class NumPad: UIInputView, UIInputViewAudioFeedback {
+public final class NumPad: UIInputView, UIInputViewAudioFeedback {
 
     private(set) var type: KeyboardType = .number
     private(set) var style: Style = Style.default
+    private(set) var inputViewType: InputViewType? = nil
+    private(set) weak var textInput: UITextInput? = nil
 
+    public var enableInputClicks: Bool = true
+ 
+    public var cursorOffset: Int {
+        return self.textInput!.offset(from: textInput!.beginningOfDocument, to: textInput!.selectedTextRange?.start ?? textInput!.endOfDocument)
+    }
+    
+    public static var decimalChar: String {
+        get { return Locale.appLocale.decimalSeparator ?? "." }
+    }
+    
+    public var decimalChar: String {
+        get { return NumPad.decimalChar }
+    }
+    
+    internal var value: String? {
+        get {
+            guard
+                let textInput: UITextInput = self.textInput,
+                let range: UITextRange = textInput.textRange(from: textInput.beginningOfDocument, to: textInput.endOfDocument)
+                else { return nil }
+
+            return textInput.text(in: range)
+        }
+    }
+    
     lazy internal var overlayView: UIView = {
         var _overlayView: UIView = UIView()
         _overlayView.translatesAutoresizingMaskIntoConstraints = false
@@ -26,90 +54,102 @@ open class NumPad: UIInputView, UIInputViewAudioFeedback {
         _innerView.backgroundColor = UIColor.clear
         return _innerView
     }()
-
+    
     internal var button: [UIButton] = []
-    internal weak var textView: UITextInput?
 
-    public init(delegate: UITextInput, type: KeyboardType = KeyboardType.number, style: NumPad.Style = NumPad.Style.default) {
+    public override var intrinsicContentSize: CGSize {
+        get { return CGSize(width: UIViewNoIntrinsicMetric, height: UIViewNoIntrinsicMetric) }
+    }
+
+    public init() {
         super.init(frame: .zero, inputViewStyle: .default)
-        self.translatesAutoresizingMaskIntoConstraints = false
-        self.type = type
-        self.style = style
-        self.textView = delegate
-        self.setupViews()
+        self.setup(type: .number, style: .default)
+    }
+    
+    public init(type: KeyboardType = KeyboardType.number) {
+        super.init(frame: .zero, inputViewStyle: .default)
+        self.setup(type: type, style: .default)
+    }
+    
+    public init(style: NumPad.Style = .default) {
+        super.init(frame: .zero, inputViewStyle: .default)
+        self.setup(type: .number, style: style)
+    }
+    
+    public init(type: KeyboardType = .number, style: NumPad.Style = .default) {
+        super.init(frame: .zero, inputViewStyle: .default)
+        self.setup(type: type, style: style)
     }
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.translatesAutoresizingMaskIntoConstraints = false
         self.setupViews()
+        self.setup(type: .number, style: .default)
     }
     
     private override init(frame: CGRect, inputViewStyle: UIInputViewStyle) {
         super.init(frame: frame, inputViewStyle: inputViewStyle)
         self.translatesAutoresizingMaskIntoConstraints = false
         self.setupViews()
+        self.setup(type: .number, style: .default)
     }
+    
+    internal func setup(type: KeyboardType = .number, style: NumPad.Style = .default) {
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.type = type
+        self.style = style
+        self.textInput = nil
+        self.setupViews()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.setupTextInput(_:)), name: NSNotification.Name.UITextFieldTextDidBeginEditing, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.setupTextInput(_:)), name: NSNotification.Name.UITextViewTextDidEndEditing, object: nil)
+    }
+    
+    @objc internal func setupTextInput(_ notification: Notification) {
         
-    open var enableInputClicksWhenVisible: Bool {
-        get { return true }
-    }
- 
-    open override var intrinsicContentSize: CGSize {
-        get { return CGSize(width: UIViewNoIntrinsicMetric, height: UIViewNoIntrinsicMetric) }
-    }
-    
-    open var notificationName: NSNotification.Name? {
-        get {
-            if ( self.textView is UITextField ) { return NSNotification.Name.UITextFieldTextDidChange }
-            else if ( self.textView is UITextView ) { return NSNotification.Name.UITextViewTextDidChange }
-            else { return nil }
-        }
-    }
-    
-    open static var decimalChar: String {
-        get { return Locale.autoupdatingCurrent.decimalSeparator ?? "." }
-    }
-    
-    open var decimalChar: String {
-        get { return NumPad.decimalChar }
-    }
-    
-    internal var value: String? {
-        get {
-            guard
-                let textView: UITextInput = self.textView,
-                let range: UITextRange = textView.textRange(from: textView.beginningOfDocument, to: textView.endOfDocument)
-                else { return nil }
-
-            return textView.text(in: range)
-        }
-    }
+        guard
+            let textInput: UITextInput = notification.object as? UITextInput,
+            ( self == (textInput as? UITextField)?.inputView || self == (textInput as? UITextView)?.inputView )
+            else { return }
         
-    open override func willMove(toSuperview newSuperview: UIView?) {
+        self.textInput = textInput
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UITextFieldTextDidBeginEditing, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UITextViewTextDidBeginEditing, object: nil)
+        
+        self.inputViewType = notification.name == NSNotification.Name.UITextFieldTextDidBeginEditing ? .textField : .textView
+    }
+    
+    public override func willMove(toSuperview newSuperview: UIView?) {
         
         super.willMove(toSuperview: newSuperview)
         
-        guard newSuperview != nil else {
-            
-            if (( self.value == self.decimalChar ) || ( self.value == "+" )) {
-                let range: UITextRange = self.textView!.textRange(from: self.textView!.beginningOfDocument, to: self.textView!.endOfDocument)!
-                self.textView!.replace(range, withText: "")
-            } else if (( self.type == .decimal ) && ( self.value?.first == self.decimalChar.first ) && ( self.decimalChar.first != nil )) {
-                let range: UITextRange = self.textView!.textRange(from: self.textView!.beginningOfDocument, to: self.textView!.position(from: self.textView!.beginningOfDocument, offset: 1)!)!
-                self.textView!.replace(range, withText: "0" + self.decimalChar)
-            } else if (( self.type == .phone ) && (( self.value?.contains("+") ?? false))) {
-                let beginsWithPlus: Bool = self.value?.first == "+" ? true : false
-                let newText: String = ( beginsWithPlus ? "+" : "" ) + self.value!.replacingOccurrences(of: "+", with: "")
-                let range: UITextRange = self.textView!.textRange(from: self.textView!.beginningOfDocument, to: self.textView!.endOfDocument)!
-                self.textView!.replace(range, withText: newText != "+" ? newText : "" )
-            }
+        guard newSuperview == nil, let textInput: UITextInput = self.textInput else {
+            self.updateState()
             return
         }
+            
+        if (( self.value == self.decimalChar ) || ( self.value == "+" )) {
+            if let range: UITextRange = textInput.textRange(from: textInput.beginningOfDocument, to: textInput.endOfDocument) {
+                textInput.replace(range, withText: "")
+            }
+        } else if (( self.type == .decimal ) && ( self.value?.first == self.decimalChar.first ) && ( self.decimalChar.first != nil )) {
+            if
+                let position: UITextPosition = textInput.position(from: textInput.beginningOfDocument, offset: 1),
+                let range: UITextRange = textInput.textRange(from: textInput.beginningOfDocument, to: position) {
+                textInput.replace(range, withText: "0" + self.decimalChar)
+            }
+        } else if (( self.type == .phone ) && (( self.value?.contains("+") ?? false))) {
+            let beginsWithPlus: Bool = self.value?.first == "+" ? true : false
+            let newText: String = ( beginsWithPlus ? "+" : "" ) + ( self.value ?? "" ).replacingOccurrences(of: "+", with: "")
+            if let range: UITextRange = textInput.textRange(from: textInput.beginningOfDocument, to: textInput.endOfDocument) {
+                textInput.replace(range, withText: newText != "+" ? newText : "" )
+            }
+        }
+        
         self.updateState()
     }
 
-    open override func layoutSubviews() {
+    public override func layoutSubviews() {
         super.layoutSubviews()
         
         guard self.type == .phone else { return }
