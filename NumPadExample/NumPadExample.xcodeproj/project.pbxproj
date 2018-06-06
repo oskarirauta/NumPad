@@ -7,14 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6E02F778209F902600F2B585 /* LocaleKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E02F777209F902600F2B585 /* LocaleKit.framework */; };
-		6E88F4AE20AF6A5E002969A7 /* PhoneNumberKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E88F4AD20AF6A5E002969A7 /* PhoneNumberKit.framework */; };
-		6E88F4B020AF6BC7002969A7 /* CommonKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E88F4AF20AF6BC7002969A7 /* CommonKit.framework */; };
 		6ED6E9FC209C777800127C5F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED6E9FB209C777800127C5F /* AppDelegate.swift */; };
 		6ED6E9FE209C777800127C5F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED6E9FD209C777800127C5F /* ViewController.swift */; };
 		6ED6EA03209C777900127C5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6ED6EA02209C777900127C5F /* Assets.xcassets */; };
 		6ED6EA06209C777900127C5F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6ED6EA04209C777900127C5F /* LaunchScreen.storyboard */; };
-		6ED6EA24209C77D800127C5F /* NumPad.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ED6EA23209C77D800127C5F /* NumPad.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,10 +31,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E88F4B020AF6BC7002969A7 /* CommonKit.framework in Frameworks */,
-				6E88F4AE20AF6A5E002969A7 /* PhoneNumberKit.framework in Frameworks */,
-				6E02F778209F902600F2B585 /* LocaleKit.framework in Frameworks */,
-				6ED6EA24209C77D800127C5F /* NumPad.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

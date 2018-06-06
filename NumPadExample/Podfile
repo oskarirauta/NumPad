@@ -1,0 +1,12 @@
+source 'https://github.com/CocoaPods/Specs.git'
+
+# inhibit_all_warnings!
+use_frameworks!
+
+platform :ios, '11.0'
+
+target 'NumPadExample' do
+        pod 'CommonKit', git: 'https://github.com/oskarirauta/CommonKit.git'
+	pod 'NumPad', git: 'https://github.com/oskarirauta/NumPad.git'
+	pod 'PhoneNumberKit', git: 'https://github.com/oskarirauta/PhoneNumberKit.git'
+end
