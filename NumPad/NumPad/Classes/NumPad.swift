@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import LocaleKit
+import CommonKit
 
 public final class NumPad: UIInputView, UIInputViewAudioFeedback {
 

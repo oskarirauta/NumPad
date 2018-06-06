@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6E02F776209F901A00F2B585 /* LocaleKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E02F775209F901A00F2B585 /* LocaleKit.framework */; };
 		6E6D34B7209E2B2900676B52 /* NumPad.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E6D34B6209E2B2900676B52 /* NumPad.xcassets */; };
 		6E6D34BA209E3A1300676B52 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6D34B9209E3A1300676B52 /* UIColor.swift */; };
 		6E6D34BC209E3A3200676B52 /* NSLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6D34BB209E3A3200676B52 /* NSLayoutConstraint.swift */; };
@@ -34,6 +33,7 @@
 		6ED6EA1B209C77C000127C5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6ED6EA26209C783800127C5F /* NumPadButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumPadButton.swift; sourceTree = "<group>"; };
 		6ED6EA28209C788200127C5F /* NumPad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumPad.swift; sourceTree = "<group>"; };
+		6EF2E17520C7D67A00AA108B /* CommonKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CommonKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,7 +41,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E02F776209F901A00F2B585 /* LocaleKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,6 +50,7 @@
 		6E02F774209F901A00F2B585 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6EF2E17520C7D67A00AA108B /* CommonKit.framework */,
 				6E02F775209F901A00F2B585 /* LocaleKit.framework */,
 			);
 			name = Frameworks;
